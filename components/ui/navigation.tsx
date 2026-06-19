@@ -14,7 +14,7 @@ export function Navigation() {
     <header className="fixed inset-x-0 top-0 z-50 flex justify-center px-4 pt-4 sm:px-6 sm:pt-6">
       <nav
         aria-label="Primary"
-        className="sketch-border sketch-border-crimson flex w-full max-w-5xl items-center justify-between rounded-sketch bg-velvet/80 px-5 py-3 shadow-luxury backdrop-blur-xl sm:px-8 sm:py-4"
+        className="sketch-border sketch-border-crimson flex w-full max-w-5xl items-center justify-between rounded-sketch bg-transparent px-5 py-3 sm:px-8 sm:py-4"
       >
         <Link href="/studio" className="group">
           <ArtistName variant="nav" className="group-hover:text-crimson-muted" />
