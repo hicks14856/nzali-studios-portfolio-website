@@ -40,10 +40,10 @@ export function ContactSection() {
           with a single line.
         </p>
         <a
-          href="mailto:studio@nzali.art"
+          href="mailto:nzalimuindi@gmail.com"
           className="sketch-border sketch-border-crimson inline-block rounded-sketch px-8 py-3 font-body text-xs uppercase tracking-[0.3em] text-white transition-colors hover:bg-crimson-dark/30"
         >
-          studio@nzali.art
+          nzalimuindi@gmail.com
         </a>
       </div>
     </SectionContainer>

@@ -9,9 +9,9 @@ describe("ContactSection", () => {
     expect(
       screen.getByRole("heading", { name: /commissions & inquiries/i })
     ).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: "studio@nzali.art" })).toHaveAttribute(
+    expect(screen.getByRole("link", { name: "nzalimuindi@gmail.com" })).toHaveAttribute(
       "href",
-      "mailto:studio@nzali.art"
+      "mailto:nzalimuindi@gmail.com"
     );
   });
 });
