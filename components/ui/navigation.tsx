@@ -17,7 +17,10 @@ export function Navigation() {
         className="sketch-border sketch-border-crimson flex w-full max-w-5xl items-center justify-between rounded-sketch bg-transparent px-5 py-3 sm:px-8 sm:py-4"
       >
         <Link href="/studio" className="group">
-          <ArtistName variant="nav" className="group-hover:text-crimson-muted" />
+          <ArtistName
+            variant="nav"
+            className="text-charcoal group-hover:text-crimson-dark"
+          />
         </Link>
 
         <div className="flex items-center gap-3 sm:gap-5">
@@ -32,17 +35,17 @@ export function Navigation() {
               <li key={item.href}>
                 <Link
                   href={item.href}
-                  className={`label-luxury relative text-[0.62rem] transition-colors sm:text-xs ${
+                  className={`label-luxury relative text-[0.68rem] font-medium transition-colors sm:text-sm [text-shadow:0_0_10px_rgba(250,247,242,0.95),0_1px_2px_rgba(250,247,242,0.8)] ${
                     active
-                      ? "text-crimson-muted"
-                      : "text-graphite-light hover:text-charcoal"
+                      ? "text-crimson-dark"
+                      : "text-charcoal hover:text-crimson-muted"
                   }`}
                 >
                   {item.label}
                   {active ? (
                     <motion.span
                       layoutId="nav-active"
-                      className="absolute -bottom-1.5 left-0 right-0 h-px bg-crimson-muted/70"
+                      className="absolute -bottom-1.5 left-0 right-0 h-0.5 bg-crimson-muted"
                       transition={{ type: "spring", stiffness: 380, damping: 32 }}
                     />
                   ) : null}
