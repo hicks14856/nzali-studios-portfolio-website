@@ -1,0 +1,350 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-velvet: #faf7f2;
+    --color-crimson: #8b0000;
+    --color-crimson-dark: #4a0404;
+    --color-crimson-muted: #7a0010;
+    --color-graphite-stroke: rgba(107, 107, 107, 0.35);
+    --color-graphite-heavy: rgba(64, 64, 64, 0.55);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    background-color: #faf7f2;
+  }
+
+  html.lenis-active {
+    scroll-behavior: auto;
+  }
+
+  html.lenis-active body {
+    overscroll-behavior: none;
+  }
+
+  body {
+    @apply bg-velvet text-charcoal-light antialiased;
+    background-image: radial-gradient(
+      ellipse 120% 80% at 50% -20%,
+      rgba(122, 0, 16, 0.035) 0%,
+      transparent 55%
+    );
+    -webkit-user-select: none;
+    user-select: none;
+    -webkit-touch-callout: none;
+  }
+
+  img,
+  canvas,
+  picture,
+  video {
+    -webkit-user-drag: none;
+    user-drag: none;
+  }
+
+  input,
+  textarea,
+  select,
+  [contenteditable="true"],
+  [data-security-allow] {
+    -webkit-user-select: text;
+    user-select: text;
+    -webkit-touch-callout: default;
+  }
+
+  ::selection {
+    @apply bg-crimson-muted/20 text-charcoal;
+  }
+}
+
+@layer components {
+  /**
+   * Pencil-sketch frame: layered pseudo-borders with SVG noise filter
+   * for an uneven, hand-drawn graphite stroke appearance.
+   */
+  .sketch-border {
+    @apply relative isolate;
+  }
+
+  .sketch-border::before,
+  .sketch-border::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    border-radius: inherit;
+  }
+
+  .sketch-border::before {
+    inset: -1px;
+    border: 1px solid var(--color-graphite-stroke);
+    filter: url(#pencil-roughness);
+    opacity: 0.85;
+  }
+
+  .sketch-border::after {
+    inset: 2px;
+    border: 1px solid rgba(122, 0, 16, 0.1);
+    filter: url(#pencil-roughness-light);
+    opacity: 0.45;
+    transform: rotate(0.15deg) scale(1.002);
+  }
+
+  .sketch-border-heavy::before {
+    border-width: 1.5px;
+    border-color: var(--color-graphite-heavy);
+    opacity: 0.95;
+  }
+
+  .sketch-border-crimson::before {
+    border-color: rgba(122, 0, 16, 0.28);
+  }
+
+  .sketch-border-crimson::after {
+    border-color: rgba(139, 0, 0, 0.08);
+  }
+
+  /** Inner content padding helper for sketch frames */
+  .sketch-padding {
+    @apply p-6 sm:p-8 md:p-10;
+  }
+
+  /** Subtle horizontal rule mimicking a pencil line */
+  .sketch-divider {
+    @apply relative h-px w-full border-0 bg-transparent;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(107, 107, 107, 0.22) 8%,
+      rgba(64, 64, 64, 0.35) 45%,
+      rgba(107, 107, 107, 0.2) 92%,
+      transparent 100%
+    );
+    filter: url(#pencil-roughness-light);
+  }
+
+  /** Typography presets */
+  .heading-display {
+    @apply font-heading text-4xl font-light tracking-wide text-charcoal sm:text-5xl md:text-6xl lg:text-7xl;
+  }
+
+  /** Calligraphic artist signature — Great Vibes */
+  .heading-signature {
+    font-family: var(--font-signature), "Great Vibes", cursive;
+    @apply font-normal text-charcoal;
+    font-size: clamp(4.5rem, 14vw, 8.75rem);
+    line-height: 0.88;
+    letter-spacing: 0.015em;
+    text-shadow: 0 2px 28px rgba(122, 0, 16, 0.1);
+  }
+
+  .nav-signature {
+    font-family: var(--font-signature), "Great Vibes", cursive;
+    @apply text-[2.15rem] font-normal leading-none text-charcoal transition-colors sm:text-[2.5rem];
+    letter-spacing: 0.01em;
+  }
+
+  .login-signature {
+    font-family: var(--font-signature), "Great Vibes", cursive;
+    @apply font-normal text-charcoal;
+    font-size: clamp(3.25rem, 14vw, 5rem);
+    line-height: 0.9;
+    letter-spacing: 0.02em;
+  }
+
+  .heading-section {
+    @apply font-heading text-3xl font-light tracking-wide text-charcoal sm:text-4xl md:text-5xl;
+  }
+
+  .body-prose {
+    @apply font-body text-base leading-relaxed text-charcoal-light sm:text-lg;
+  }
+
+  .label-luxury {
+    @apply font-body text-xs uppercase tracking-[0.35em] text-graphite-light;
+  }
+
+  /** About page — playful cartoon typography */
+  .about-cartoon .heading-display,
+  .about-cartoon .heading-section,
+  .about-cartoon .body-prose,
+  .about-cartoon .label-luxury,
+  .about-cartoon .about-quote,
+  .about-cartoon .about-quote-footer {
+    @apply font-cartoon;
+  }
+
+  .about-cartoon .heading-display {
+    @apply font-medium tracking-normal;
+  }
+
+  .about-cartoon .heading-section {
+    @apply font-medium tracking-normal;
+  }
+
+  .about-cartoon .body-prose {
+    @apply font-normal leading-relaxed tracking-wide;
+  }
+
+  .about-cartoon .label-luxury {
+    @apply font-medium tracking-[0.2em];
+  }
+
+  .about-cartoon .about-quote {
+    @apply text-3xl font-semibold not-italic text-graphite-light sm:text-4xl;
+  }
+
+  .about-cartoon .about-quote-footer {
+    @apply text-xs font-medium uppercase tracking-[0.2em] text-graphite/60;
+  }
+
+  /** Nostalgic frame treatments for artwork */
+  .frame-paper {
+    background: linear-gradient(
+      145deg,
+      #f7f2ea 0%,
+      #efe8dc 45%,
+      #e8dfd0 100%
+    );
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.75) inset,
+      0 14px 44px rgba(26, 22, 18, 0.14),
+      0 4px 12px rgba(26, 22, 18, 0.06);
+  }
+
+  .frame-polaroid {
+    background: #faf8f5;
+    padding: 0.75rem 0.75rem 2.5rem;
+    box-shadow:
+      0 2px 0 rgba(255, 255, 255, 0.85) inset,
+      0 18px 52px rgba(26, 22, 18, 0.16),
+      0 6px 16px rgba(26, 22, 18, 0.08);
+  }
+
+  .frame-notebook {
+    background:
+      linear-gradient(#e8eef5 1px, transparent 1px),
+      linear-gradient(90deg, #d4dce8 1px, transparent 1px),
+      #fdfaf5;
+    background-size:
+      100% 1.75rem,
+      1.75rem 100%,
+      100% 100%;
+    background-position: 0 2.5rem, 2.5rem 0, 0 0;
+    box-shadow:
+      0 14px 44px rgba(26, 22, 18, 0.14),
+      0 4px 12px rgba(26, 22, 18, 0.06);
+  }
+
+  .frame-canvas {
+    background: #1a1a1a;
+    padding: 0.65rem;
+    box-shadow:
+      inset 0 0 0 1px rgba(255, 255, 255, 0.08),
+      0 20px 60px rgba(26, 22, 18, 0.22),
+      0 8px 24px rgba(26, 22, 18, 0.12);
+  }
+
+  /** Warm matting well — lifts artwork off the milk-white page */
+  .artwork-stage {
+    background: linear-gradient(
+      168deg,
+      #ebe3d6 0%,
+      #e2d9cc 48%,
+      #d9cfbf 100%
+    );
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.55),
+      inset 0 -3px 14px rgba(26, 22, 18, 0.05),
+      0 8px 28px rgba(26, 22, 18, 0.1);
+  }
+
+  .artwork-lift {
+    filter: drop-shadow(0 8px 22px rgba(26, 22, 18, 0.18));
+  }
+
+  .frame-canvas::before {
+    border-color: rgba(120, 120, 120, 0.25) !important;
+  }
+
+  .memory-caption {
+    @apply font-heading text-sm italic text-graphite-light/80;
+  }
+
+  .memory-grain {
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    mix-blend-mode: soft-light;
+  }
+
+  /** Sitewide cinematic grain — soft paper texture on milk-white ground */
+  .site-grain {
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.78' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)' opacity='0.045'/%3E%3C/svg%3E");
+    mix-blend-mode: multiply;
+    opacity: 0.28;
+  }
+
+  /** Login fade-in — CSS-only, no JS animation library */
+  .login-fade-in {
+    animation: loginReveal 1.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    opacity: 0;
+  }
+
+  @keyframes loginReveal {
+    from {
+      opacity: 0;
+      transform: translateY(12px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .brand-loader-outline {
+    animation: brandLoaderInk 2.2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(122, 0, 16, 0.45);
+  }
+
+  @keyframes brandLoaderInk {
+    0% {
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(122, 0, 16, 0.35);
+      text-shadow: none;
+    }
+    55% {
+      color: rgba(26, 26, 26, 0.12);
+      -webkit-text-stroke: 1px rgba(122, 0, 16, 0.65);
+      text-shadow: 0 0 24px rgba(122, 0, 16, 0.12);
+    }
+    100% {
+      color: rgba(26, 26, 26, 1);
+      -webkit-text-stroke: 0 rgba(122, 0, 16, 0);
+      text-shadow: 0 0 32px rgba(122, 0, 16, 0.08);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .brand-loader-outline {
+      animation: none;
+      color: rgba(26, 26, 26, 1);
+      -webkit-text-stroke: 0;
+    }
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+}
